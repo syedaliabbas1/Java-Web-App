@@ -9,23 +9,17 @@
 <body>
 <jsp:include page="/header.jsp"/>
 <div class="main">
-  <h1>Search Results</h1>
-  <%
-    List<String> patients = (List<String>) request.getAttribute("result");
-    if (patients.size() !=0)
-    {
+  <h2>Patients:</h2>
+  <ul>
+    <%
+      List<String> patients = (List<String>) request.getAttribute("patientNames");
+      for (String patient : patients)
+      {
+        String href = "dummypage.html";
     %>
-    <ul>
-      <%
-        for (String patient : patients)
-        {
-      %>
-      <li><%=patient%></li>
-     <% }
-    } else
-    {%>
-      <p>Nothing found</p>
-  <%}%>
+    <li><a href="<%=href%>"><%=patient%></a>
+    </li>
+    <% } %>
   </ul>
 </div>
 <jsp:include page="/footer.jsp"/>

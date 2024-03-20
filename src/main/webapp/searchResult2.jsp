@@ -39,7 +39,7 @@
         <thead>
         <tr>
             <%
-                DataFrame df = (DataFrame) request.getAttribute("dataFrame");
+                DataFrame df = (DataFrame) request.getAttribute("filteredDataFrame");
                 if (df == null) {
             %>
             <th colspan="4">No DataFrame found in request</th>

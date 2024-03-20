@@ -4,66 +4,46 @@
 
 <html>
 <head>
-    <title>Patients Data</title>
+    <title>DataFrame Spreadsheet</title>
     <style>
         table {
             border-collapse: collapse;
             width: 100%;
-            font-family: Arial, sans-serif;
-            margin-bottom: 2rem;
         }
         th, td {
-            border: 1px solid #ddd;
+            border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
         th {
             background-color: #f2f2f2;
-            color: #333;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .main {
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 1rem;
         }
     </style>
 </head>
 <body>
 <div class="main">
-    <h2>Patients Data</h2>
+    <h2>DataFrame Spreadsheet:</h2>
     <table>
         <thead>
         <tr>
             <%
                 DataFrame df = (DataFrame) request.getAttribute("dataFrame");
-                if (df == null) {
-            %>
-            <th colspan="4">No DataFrame found in request</th>
-            <%
-            } else {
                 List<String> columnNames = df.getColumnNames();
                 for (String columnName : columnNames) {
             %>
             <th><%= columnName %></th>
             <%
-                    }
                 }
             %>
         </tr>
         </thead>
         <tbody>
         <%
-            if (df != null) {
-                int rowCount = df.getRowCount();
-                for (int row = 0; row < rowCount; row++) {
+            int rowCount = df.getRowCount();
+            for (int row = 0; row < rowCount; row++) {
         %>
         <tr>
             <%
-                List<String> columnNames = df.getColumnNames();
                 for (String columnName : columnNames) {
                     String cellValue = df.getValue(columnName, row);
             %>
@@ -73,7 +53,6 @@
             %>
         </tr>
         <%
-                }
             }
         %>
         </tbody>

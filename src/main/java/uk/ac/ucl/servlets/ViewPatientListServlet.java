@@ -1,5 +1,6 @@
 package uk.ac.ucl.servlets;
 
+import uk.ac.ucl.model.DataFrame;
 import uk.ac.ucl.model.Model;
 import uk.ac.ucl.model.ModelFactory;
 
@@ -25,11 +26,12 @@ public class ViewPatientListServlet extends HttpServlet
   {
     // Get the data from the model
     Model model = ModelFactory.getModel();
-    List<String> patientNames = model.getPatientNames();
+    //List<String> patientNames = model.getColumnNames();
+    DataFrame dataFrame = model.getDataFrame();
     // Then add the data to the request object that will be sent to the Java Server Page, so that
     // the JSP can access the data (a Java data structure).
-    request.setAttribute("patientNames", patientNames);
-
+    //request.setAttribute("patientNames", patientNames);
+    request.setAttribute("dataFrame", dataFrame);
     // Invoke the JSP.
     // A JSP page is actually converted into a Java class, so behind the scenes everything is Java.
     ServletContext context = getServletContext();
