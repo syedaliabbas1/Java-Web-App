@@ -1,0 +1,27 @@
+  public DataFrame searchFor(String searchString) {
+    DataFrame filteredFrame = new DataFrame();
+    ArrayList<String> columnNames = dataFrame.getColumnNames();
+    ArrayList<Column> columns= new ArrayList<>();
+    for (String columnName : columnNames){
+      Column newColumn = new Column(columnName);
+      columns.add(newColumn);
+    }
+    for (Column column : dataFrame.getColumns()) {
+      //Column resultColumn = new Column(column.getName());
+      for (int row = 0; row < column.getSize(); row++) {
+        String cellValue = column.getRowValue(row);
+        if (cellValue.toLowerCase().contains(searchString.toLowerCase())) {
+          for (Column newColumn : columns){
+            newColumn.addRowValue(dataFrame.getValue(newColumn.getName(), row));
+
+          }
+
+        }
+      }
+    }
+    for (Column newColumn : columns){
+      if (!newColumn.getRows().isEmpty()) {
+        filteredFrame.addColumn(newColumn);}
+    }
+    return filteredFrame;
+  }
