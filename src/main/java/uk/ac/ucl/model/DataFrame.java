@@ -1,5 +1,7 @@
 package uk.ac.ucl.model;
 import java.util.ArrayList;
+import java.util.List;
+
 //Write a class DataFrame to hold a collection of Columns. It should have the
 //following methods:
 //1. addColumn
@@ -75,4 +77,18 @@ public class DataFrame {
         }
         throw new IllegalArgumentException("Column not found: " + columnName);
     }
+    public void addRow(List<String> rowValues) {
+        // Ensure the number of values in the row matches the number of columns
+        if (rowValues.size() != columns.size()) {
+            throw new IllegalArgumentException("Number of values in the row does not match the number of columns.");
+        }
+
+        // Add each value to its corresponding column
+        for (int i = 0; i < columns.size(); i++) {
+            Column column = columns.get(i);
+            String cellValue = rowValues.get(i);
+            column.addRowValue(cellValue);
+        }
+    }
+
 }

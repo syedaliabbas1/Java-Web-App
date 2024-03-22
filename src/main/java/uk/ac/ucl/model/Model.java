@@ -74,22 +74,40 @@ public class Model
 
   public DataFrame searchFor(String searchString) {
     DataFrame filteredFrame = new DataFrame();
+
+    // Add columns to the filtered DataFrame
+    for (String columnName : dataFrame.getColumnNames()) {
+      Column newColumn = new Column(columnName);
+      filteredFrame.addColumn(newColumn);
+    }
+
+    // Iterate over each column in the original DataFrame
     for (Column column : dataFrame.getColumns()) {
-      Column resultColumn = new Column(column.getName());
+      // Iterate over each row in the column
       for (int row = 0; row < column.getSize(); row++) {
         String cellValue = column.getRowValue(row);
-        if (cellValue.contains(searchString)) {
-          resultColumn.addRowValue(cellValue);
-
+        // Check if the cell value contains the search string
+        if (cellValue.toLowerCase().contains(searchString.toLowerCase()) ) {
+          // If the search string is found in the cell value, add the entire row to the filtered DataFrame
+          List<String> rowValues = new ArrayList<>();
+          // Get values for each column in the row
+          for (String columnName : filteredFrame.getColumnNames()) {
+            String value = dataFrame.getValue(columnName, row);
+            rowValues.add(value);
+          }
+          // Add the row to the filtered DataFrame
+          filteredFrame.addRow(rowValues);
+          // Break from the inner loop to avoid adding the same row multiple times
 
         }
       }
-      if (!resultColumn.getRows().isEmpty()) {
-        filteredFrame.addColumn(resultColumn);
-      }
     }
+
     return filteredFrame;
   }
+
+
+
 }
 
 

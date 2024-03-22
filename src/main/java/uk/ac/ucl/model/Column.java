@@ -25,7 +25,8 @@ public Column(String name){
         if (index >= 0 && index < rows.size()) {
             return rows.get(index);
         } else {
-            throw new IndexOutOfBoundsException("Invalid index: " + index);
+            return null;
+
         }
     }
 
@@ -35,6 +36,7 @@ public Column(String name){
             rows.set(index, value);
         } else {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
+
         }
     }
 
